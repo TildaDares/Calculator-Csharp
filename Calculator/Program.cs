@@ -8,6 +8,7 @@ class Program
     static void Main(string[] args)
     {
         bool endApp = false;
+        int calculatorCount = 0;
         // Display title as the C# console calculator app.
         Console.WriteLine("Console Calculator in C#\r");
         Console.WriteLine("------------------------\n");
@@ -19,30 +20,51 @@ class Program
             string? numInput1 = "";
             string? numInput2 = "";
             double result = 0;
-
-            // Ask the user to type the first number.
+            
+            var calculations = calculator.Operations;
             Console.Write("Type a number, and then press Enter: ");
-            numInput1 = Console.ReadLine();
-
-            double cleanNum1 = 0;
-            while (!double.TryParse(numInput1, out cleanNum1))
+            if (calculations.Count > 0)
             {
-                Console.Write("This is not valid input. Please enter a numeric value: ");
-                numInput1 = Console.ReadLine();
+                Console.WriteLine("Or enter 'l' to use the result of your last operation: ");
             }
-
-            // Ask the user to type the second number.
+            numInput1 = Console.ReadLine();
+            
+            double cleanNum1 = 0;
+            if (numInput1 == "l" && calculations.Count > 0)
+            {
+                cleanNum1 = calculations[^1].Item2;
+            }
+            else
+            {
+                while (!double.TryParse(numInput1, out cleanNum1))
+                {
+                    Console.Write("This is not valid input. Please enter a numeric value: ");
+                    numInput1 = Console.ReadLine();
+                }
+            }
+            
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\nNB: Second number will be ignored for unary operations.");
             Console.ResetColor();
             Console.Write("Type another number, and then press Enter: ");
-            numInput2 = Console.ReadLine();
-
-            double cleanNum2 = 0;
-            while (!double.TryParse(numInput2, out cleanNum2))
+            if (calculations.Count > 0)
             {
-                Console.Write("This is not valid input. Please enter a numeric value: ");
-                numInput2 = Console.ReadLine();
+                Console.WriteLine("Or enter 'l' to use the result of your last operation: ");
+            }
+            numInput2 = Console.ReadLine();
+            
+            double cleanNum2 = 0;
+            if (numInput2 == "l" && calculations.Count > 0)
+            {
+                cleanNum2 = calculations[^1].Item2;
+            }
+            else
+            {
+                while (!double.TryParse(numInput2, out cleanNum2))
+                {
+                    Console.Write("This is not valid input. Please enter a numeric value: ");
+                    numInput2 = Console.ReadLine();
+                }
             }
 
             // Ask the user to choose an operator.
@@ -58,8 +80,7 @@ class Program
             Console.WriteLine("\tcos - Cosine");
             Console.WriteLine("\ttan - Tangent");
             Console.Write("Your option? ");
-
-            int calculatorCount = 0;
+            
             string? op = Console.ReadLine();
 
             // Validate input is not null, and matches the pattern
