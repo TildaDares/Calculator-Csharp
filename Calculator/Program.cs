@@ -4,14 +4,14 @@ using CalculatorLibrary;
 namespace CalculatorProgram;
 class Program
 {
+    private static readonly Calculator calculator = new Calculator();
     static void Main(string[] args)
     {
         bool endApp = false;
         // Display title as the C# console calculator app.
         Console.WriteLine("Console Calculator in C#\r");
         Console.WriteLine("------------------------\n");
-
-        Calculator calculator = new Calculator();
+        
         while (!endApp)
         {
             // Declare variables and set to empty.
@@ -87,15 +87,41 @@ class Program
             Console.WriteLine("------------------------\n");
 
             // Wait for the user to respond before closing.
-            Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
-            if (Console.ReadLine() == "n")
+            Console.WriteLine("Select an option:");
+            Console.WriteLine("Press any key and Enter to continue:");
+            Console.WriteLine("\th - View history");
+            Console.WriteLine("\tc - Clear history");
+            Console.WriteLine("\tn - Quit");
+            var userInput = Console.ReadLine();
+
+            switch (userInput)
             {
-                Console.WriteLine($"You used the calculator {calculatorCount} times!");
-                endApp = true;
+                case "h":
+                    ViewCalculationHistory();
+                    break;
+                case "c":
+                    calculator.ClearCalculatorHistory();
+                    Console.WriteLine("History cleared!\n");
+                    break;
+                case "n":
+                    Console.WriteLine($"You used the calculator {calculatorCount} times!");
+                    endApp = true;
+                    break;
             }
 
-            Console.WriteLine("\n"); // Friendly linespacing.
+            Console.WriteLine("\n");
         }
         calculator.Finish();
+    }
+
+    public static void ViewCalculationHistory()
+    {
+        var calculations = calculator.Operations;
+        Console.Clear();
+        Console.WriteLine("\nCalculation History:");
+        foreach (var calc in calculations)
+        {
+            Console.WriteLine($"{calc.Item1} = {calc.Item2}");
+        }
     }
 }
