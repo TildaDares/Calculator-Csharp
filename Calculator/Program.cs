@@ -32,7 +32,9 @@ class Program
             }
 
             // Ask the user to type the second number.
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\nNB: Second number will be ignored for unary operations.");
+            Console.ResetColor();
             Console.Write("Type another number, and then press Enter: ");
             numInput2 = Console.ReadLine();
 
