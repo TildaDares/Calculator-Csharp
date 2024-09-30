@@ -57,6 +57,10 @@ public class Calculator
                 result = Math.Sqrt(num1);
                 writer.WriteValue("Square Root");
                 break;
+            case "p":
+                result = Math.Pow(num1, num2);
+                writer.WriteValue("Power of");
+                break;
             // Return text for an incorrect option entry.
             default:
                 break;
