@@ -5,6 +5,7 @@ namespace CalculatorLibrary;
 public class Calculator
 {
     JsonWriter writer;
+    private string[] unaryOperations = new string[] { "r", "t" }; // Square root, Multiply by 10 (10x)
 
     public Calculator()
     {
@@ -24,7 +25,7 @@ public class Calculator
         writer.WriteStartObject();
         writer.WritePropertyName("Operand1");
         writer.WriteValue(num1);
-        if (op != "sr")
+        if (!unaryOperations.Contains(op))
         {
             writer.WritePropertyName("Operand2");
             writer.WriteValue(num2);
@@ -60,6 +61,10 @@ public class Calculator
             case "p":
                 result = Math.Pow(num1, num2);
                 writer.WriteValue("Power of");
+                break;
+            case "t":
+                result = num1 * 10;
+                writer.WriteValue("10x");
                 break;
             // Return text for an incorrect option entry.
             default:
