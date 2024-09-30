@@ -5,7 +5,7 @@ namespace CalculatorLibrary;
 public class Calculator
 {
     JsonWriter writer;
-    private string[] unaryOperations = new string[] { "r", "t" }; // Square root, Multiply by 10 (10x)
+    private string[] unaryOperations = new string[] { "r", "t", "sin", "cos", "tan" }; // Square root, Multiply by 10 (10x), Sin, Cos, Tan
 
     public Calculator()
     {
@@ -65,6 +65,18 @@ public class Calculator
             case "t":
                 result = num1 * 10;
                 writer.WriteValue("10x");
+                break;
+            case "sin":
+                result = Math.Sin(num1);
+                writer.WriteValue("Sine");
+                break;
+            case "cos":
+                result = Math.Cos(num1);
+                writer.WriteValue("Cosine");
+                break;
+            case "tan":
+                result = Math.Tan(num1);
+                writer.WriteValue("Tangent");
                 break;
             // Return text for an incorrect option entry.
             default:
