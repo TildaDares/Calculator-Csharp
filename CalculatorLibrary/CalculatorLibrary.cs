@@ -24,8 +24,11 @@ public class Calculator
         writer.WriteStartObject();
         writer.WritePropertyName("Operand1");
         writer.WriteValue(num1);
-        writer.WritePropertyName("Operand2");
-        writer.WriteValue(num2);
+        if (op != "sr")
+        {
+            writer.WritePropertyName("Operand2");
+            writer.WriteValue(num2);
+        }
         writer.WritePropertyName("Operation");
         // Use a switch statement to do the math.
         switch (op)
@@ -49,6 +52,10 @@ public class Calculator
                     result = num1 / num2;
                 }
                 writer.WriteValue("Divide");
+                break;
+            case "r":
+                result = Math.Sqrt(num1);
+                writer.WriteValue("Square Root");
                 break;
             // Return text for an incorrect option entry.
             default:

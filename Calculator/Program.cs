@@ -32,6 +32,7 @@ class Program
             }
 
             // Ask the user to type the second number.
+            Console.WriteLine("\nNB: Second number will be ignored for unary operations.");
             Console.Write("Type another number, and then press Enter: ");
             numInput2 = Console.ReadLine();
 
@@ -48,13 +49,14 @@ class Program
             Console.WriteLine("\ts - Subtract");
             Console.WriteLine("\tm - Multiply");
             Console.WriteLine("\td - Divide");
+            Console.WriteLine("\tr - Square Root");
             Console.Write("Your option? ");
 
             int calculatorCount = 0;
             string? op = Console.ReadLine();
 
             // Validate input is not null, and matches the pattern
-            if (op == null || ! Regex.IsMatch(op, "[a|s|m|d]"))
+            if (op == null || ! Regex.IsMatch(op, "[a|s|m|d|r]"))
             {
                Console.WriteLine("Error: Unrecognized input.");
             }
